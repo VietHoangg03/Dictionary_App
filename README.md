@@ -20,6 +20,10 @@
   <img width="600" height="380" src="https://i.imgur.com/1q0uSq1.png" alt="">
 </p>
 
+# Biểu đồ UML
+![UML Class](https://github.com/VietHoangg03/Dictionary_App/assets/97818743/4a4cfcf2-2ea7-4f23-9e23-f2b1965faee7)
+
+
 # Cài đặt <a name="installation"></a>
 * Clone repository này: git clone https://github.com/VietHoangg03/Dictionary_App.git
 * Cài đặt JDK 8 (Khuyến khích: liberica-full-1.8.0_412), sử dụng IntelliJ, Eclipse hoặc Netbean để chạy chương trình.
