@@ -1,5 +1,9 @@
 # Dictionary App
 
+# Thành viên <a name="member"></a>
+*-21020434 - Đinh Việt Hoàng 
+*-21020914 - Lê Đình Huy
+
 # Giới thiệu <a name="introduction"></a>
 * Ứng dụng từ điển để tra cứu từ vựng, tìm kiếm, lưu trữ từ vựng.
 * Ứng dụng sử dụng Java và JavaFX để xây dựng đồ hoạ.
