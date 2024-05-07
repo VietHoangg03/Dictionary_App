@@ -1,11 +1,7 @@
 package base;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class DictionaryManagement {
     private final Dictionary dictionary;
@@ -60,7 +56,7 @@ public class DictionaryManagement {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the word to lookup:");
-        String englishWord = scanner.nextLine();
+        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
 
         int index = binaryLookup(0, dictionary.getWords().size(), englishWord, dictionary.getWords());
         if (index >= 0) {
@@ -97,13 +93,23 @@ public class DictionaryManagement {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the English word to add:");
-        String englishWord = scanner.nextLine();
+        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
 
         System.out.println("Enter the Vietnamese meaning:");
         String vietnameseWord = scanner.nextLine();
 
         Word word = new Word(englishWord, vietnameseWord);
         dictionary.addWord(word);
+
+        // Write the new word to the file
+        try {
+            FileWriter writer = new FileWriter(IN_PATH, true); // true to append to the file
+            writer.write(englishWord + "," + vietnameseWord + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
 
         System.out.println("Word added successfully.");
     }
@@ -112,7 +118,7 @@ public class DictionaryManagement {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the English word to edit:");
-        String englishWord = scanner.nextLine();
+        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
 
         int index = binaryLookup(0, dictionary.getWords().size(), englishWord, dictionary.getWords());
         if (index >= 0) {
@@ -131,7 +137,7 @@ public class DictionaryManagement {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the English word to delete:");
-        String englishWord = scanner.nextLine();
+        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
 
         int index = binaryLookup(0, dictionary.getWords().size(), englishWord, dictionary.getWords());
         if (index >= 0) {
@@ -158,6 +164,8 @@ public class DictionaryManagement {
             e.printStackTrace();
         }
     }
+
+
 
     public static int isContain(String str1, String str2) {
         for (int i = 0; i < Math.min(str1.length(), str2.length()); i++) {
