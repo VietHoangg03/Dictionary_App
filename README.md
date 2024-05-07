@@ -5,7 +5,7 @@
 * Ứng dụng sử dụng Java và JavaFx để xây dựng đồ hoạ.
 * Ứng dụng có hai phần chính là DictionaryApplication dùng JavaFx và DictionanaryCommanline chạy trong Terminal.
 
-<p> Khởi động bằng DictionaryCommanline
+<p> Khởi động bằng DictionaryCommandLine
 <img width="640" height="480" src="https://i.imgur.com/paLNfBJ.png" alt="">
 </p>
 
