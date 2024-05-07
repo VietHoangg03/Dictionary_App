@@ -2,7 +2,7 @@
 
 # Giới thiệu <a name="introduction"></a>
 * Ứng dụng từ điển để tra cứu từ vựng, tìm kiếm, lưu trữ từ vựng.
-* Ứng dụng sử dụng Java và JavaFx để xây dựng đồ hoạ.
+* Ứng dụng sử dụng Java và JavaFX để xây dựng đồ hoạ.
 * Ứng dụng có hai phần chính là DictionaryApplication dùng JavaFX và DictionanaryCommandLine chạy trong Terminal.
 
 <p> Khởi động bằng DictionaryCommandLine
