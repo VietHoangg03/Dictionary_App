@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="second-color" stylesheets="@../style/game.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="main.GameController">
+    <VBox styleClass="Conrect-Answer" prefHeight="100" prefWidth="200" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+        <children>
+            <Label text="Number of Correct Answers" />
+            <Label fx:id="correctCountLabel" />
+            <Label text="Number of Incorrect Answers" />
+            <Label fx:id="incorrectCountLabel" />
+        </children>
+    </VBox>
+    <VBox styleClass="content_ans" alignment="CENTER" spacing="20" prefHeight="200" prefWidth="560" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="150.0" >
+        <Label fx:id="questionLabel" text="Loading..." style="-fx-font-size: 25;" />
+        <TextField styleClass="enter_answer" fx:id="answerField" onKeyPressed="#onAnswerKeyPressed" promptText="Enter your answer..." />
+        <HBox layoutX="14.0" layoutY="14.0" styleClass="button-row" >
+                <children>
+                    <Button styleClass="button-check"  text="Check Key" onAction="#checkKey"/>
+                    <Button  text="Next Question" onAction="#showNextQuestion" />
+                </children>
+        </HBox>
+    </VBox>
+    <VBox styleClass="congratulation" prefHeight="100" prefWidth="500" AnchorPane.leftAnchor="150" AnchorPane.bottomAnchor="100"  >
+    <Label fx:id="congratulationLabel"  textFill="green" visible="false"/>
+    </VBox>
+</AnchorPane>

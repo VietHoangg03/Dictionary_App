@@ -1,0 +1,54 @@
+.button {
+    -fx-background-color: white;
+    -fx-background-radius: 9;
+    -fx-padding: 5;
+    -fx-alignment: center;
+    -fx-border-radius: 9;
+    -fx-border-color: black;
+}
+
+.button-row {
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER;
+}
+
+.button-row .button {
+    -fx-pref-width: 200px; /* Độ rộng mong muốn của mỗi nút */
+}
+
+.button-check:hover {
+    -fx-background-color: #00FF00;
+}
+
+.Conrect-Answer {
+    -fx-font-family: Symbol;
+    -fx-font-size: 15 ;
+    -fx-background-radius: 9;
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-border-radius: 9;
+}
+
+.Conrect-Answer:hover {
+    -fx-border-color: black;
+}
+
+.enter_answer {
+    -fx-background-radius: 9;
+    -fx-font-size: 20;
+}
+
+.enter_answer:hover {
+    -fx-border-radius: 9;
+    -fx-border-color: black;
+}
+
+.congratulation {
+    -fx-font-size: 25;
+    -fx-alignment: center;
+}
+
+
+
+
+

@@ -1,0 +1,81 @@
+máy tính.computer
+từ điển.dictionary
+ô tô.car
+con gái.girl
+mẹ.mother
+bố.father
+tài liệu.document
+điện thoại.phone
+bàn phím.keyboard
+chuột.mouse
+màn hình.monitor
+loa.speaker
+bút.pen
+giấy.paper
+thước rèn.ruler
+quạt.fan
+đèn.light
+bát đũa.bowl
+đĩa.plate
+tách.cup
+nồi.pot
+đồng hồ.clock
+bàn.table
+ghế.chair
+đèn bàn.desk lamp
+tủ.cabinet
+gương.mirror
+điều hòa.air conditioner
+cửa sổ.window
+cửa.door
+xe bus.bus
+đường.road
+trái cây.fruit
+rau củ.vegetable
+thịt.meat
+nước.water
+cà phê.coffee
+trà.tea
+coca cola.coca cola
+hamburger.hamburger
+pizza.pizza
+kem.ice cream
+bánh mì.bread
+bánh pastry
+cá.fish
+gà.chicken
+bò.beef
+thịt heo.pork
+tôm.shrimp
+cua.crab
+mực.squid
+táo.apple
+cam.orange
+chuối.banana
+lê.pear
+nho.grape
+ổi.papaya
+cà chua.tomato
+cà rốt.carrot
+cải bắp.cabbage
+hành.onion
+tỏi.garlic
+bắp.corn
+đậu.bean
+đậu nành.soybean
+lúa mì.wheat
+gạo.rice
+bí đỏ.pumpkin
+dưa hấu.watermelon
+dưa.cucumber
+hành tây.leek
+cà chua cherry.cherry tomato
+dưa leo.zucchini
+bí ngô.butternut squash
+bí ngô spaghetti.spaghetti squash
+khoai tây.potato
+khoai lang.sweet potato
+dưa hấu.cantaloupe
+hành đỏ.red onion
+hành tỏi.shallot
+cà chua có hạt.tomato
