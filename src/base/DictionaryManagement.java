@@ -12,6 +12,9 @@ public class DictionaryManagement {
         dictionary = new Dictionary();
     }
 
+    /**
+     * Nhập từ CommandLine.
+     */
     public void insertFromCommandline() {
         Scanner scanner = new Scanner(System.in);
 
@@ -31,6 +34,9 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * Nhập vào từ File.
+     */
     public void insertFromFile() {
         File file = new File(IN_PATH);
         try {
@@ -52,6 +58,9 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * Tìm kiếm từ.
+     */
     public void dictionaryLookup() {
         Scanner scanner = new Scanner(System.in);
 
@@ -66,6 +75,9 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * Tìm kiếm nhị phân.
+     */
     public int binaryLookup(int start, int end, String word, ArrayList<Word> temp) {
         if (end >= start) {
             int mid = start + (end - start) / 2;
@@ -89,6 +101,9 @@ public class DictionaryManagement {
         return -1;
     }
 
+    /**
+     * Thêm từ.
+     */
     public void addWord() {
         Scanner scanner = new Scanner(System.in);
 
@@ -114,6 +129,9 @@ public class DictionaryManagement {
         System.out.println("Word added successfully.");
     }
 
+    /**
+     * Sửa từ.
+     */
     public void editWord() {
         Scanner scanner = new Scanner(System.in);
 
@@ -133,6 +151,9 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * Xóa từ.
+     */
     public void deleteWord() {
         Scanner scanner = new Scanner(System.in);
 
@@ -149,6 +170,9 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * Xuất ra file.
+     */
     public void dictionaryExportToFile() {
         try {
             FileWriter writer = new FileWriter(OUT_PATH);

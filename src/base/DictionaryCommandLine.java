@@ -1,186 +1,118 @@
 package base;
 
-import java.io.*;
-import java.util.*;
+import base.Dictionary;
+import base.Word;
 
-public class DictionaryManagement {
-    private final Dictionary dictionary;
-    private static final String IN_PATH = "src/resource/oldVocab/dictionaries.txt";
-    private static final String OUT_PATH = "src/resource/oldVocab/dictionaries_out.txt";
+import java.util.Collections;
+import java.util.Scanner;
 
-    public DictionaryManagement() {
-        dictionary = new Dictionary();
+public class DictionaryCommandLine {
+    public void showAllWords(Dictionary dictionary) {
+        Collections.sort(dictionary.getWords());
+
+        System.out.printf("%-6s%c %-15s%c %-20s%n", "No", '|', "English", '|', "Vietnamese");
+
+        int i = 1;
+        for (Word word : dictionary.getWords()) {
+            System.out.printf("%-6d%c %-15s%c %-20s%n", i, '|', word.getSearching(), '|', word.getMeaning());
+            i++;
+        }
     }
 
-    public void insertFromCommandline() {
+    /**
+     * Từ điển cơ bản.
+     */
+    public void dictionaryBasic() {
+        DictionaryManagement dictionaryManagement = new DictionaryManagement();
+        dictionaryManagement.insertFromCommandline();
+        showAllWords(dictionaryManagement.getDictionary());
+    }
+
+    /**
+     * Tìm kiếm với tiền tố.
+     */
+    public void dictionarySearcher(Dictionary dictionary) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the number of words:");
-        int numberOfWords = scanner.nextInt();
-        scanner.nextLine(); // consume newline left-over
+        System.out.println("Enter the prefix to search:");
+        String prefix = scanner.nextLine().toLowerCase(); // convert to lower case
 
-        for (int i = 0; i < numberOfWords; i++) {
-            System.out.println("Enter word in English:");
-            String englishWord = scanner.nextLine();
-
-            System.out.println("Enter word in Vietnamese:");
-            String vietnameseWord = scanner.nextLine();
-
-            Word word = new Word(englishWord, vietnameseWord);
-            dictionary.addWord(word);
-        }
-    }
-
-    public void insertFromFile() {
-        File file = new File(IN_PATH);
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(",");
-                if (parts.length >= 2) {
-                    String englishWord = parts[0];
-                    String vietnameseWord = parts[1];
-                    Word word = new Word(englishWord, vietnameseWord);
-                    dictionary.addWord(word);
-                }
+        System.out.println("Words starting with '" + prefix + "':");
+        for (Word word : dictionary.getWords()) {
+            if (word.getSearching().toLowerCase().startsWith(prefix)) { // convert to lower case before comparing
+                System.out.println(word.getSearching() + " - " + word.getMeaning());
             }
-            scanner.close();
-            System.out.println("Đã thêm dữ liệu từ file thành công. Hãy chọn chức năng tiếp theo");
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + file.getPath());
         }
     }
 
-    public void dictionaryLookup() {
+    /**
+     * Giao diện CommandLine.
+     */
+    public void dictionaryAdvanced() {
+        DictionaryManagement dictionaryManagement = new DictionaryManagement();
         Scanner scanner = new Scanner(System.in);
+        int action;
 
-        System.out.println("Enter the word to lookup:");
-        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
+        do {
+            System.out.println("Welcome to My Application!");
+            System.out.println("[0] Exit");
+            System.out.println("[1] Add");
+            System.out.println("[2] Remove");
+            System.out.println("[3] Update");
+            System.out.println("[4] Display");
+            System.out.println("[5] Lookup");
+            System.out.println("[6] Search");
+            System.out.println("[7] Game");
+            System.out.println("[8] Import from file");
+            System.out.println("[9] Export to file");
+            System.out.print("Your action: ");
 
-        int index = binaryLookup(0, dictionary.getWords().size(), englishWord, dictionary.getWords());
-        if (index >= 0) {
-            System.out.println("Vietnamese meaning: " + dictionary.getWords().get(index).getMeaning());
-        } else {
-            System.out.println("Word not found in the dictionary.");
-        }
-    }
-
-    public int binaryLookup(int start, int end, String word, ArrayList<Word> temp) {
-        if (end >= start) {
-            int mid = start + (end - start) / 2;
-            int compare = word.compareTo(temp.get(mid).getSearching());
-
-            // If the word is present at the middle itself
-            if (compare == 0) {
-                return mid;
+            while (!scanner.hasNextInt()) {
+                System.out.println("Action not supported");
+                scanner.next();
             }
+            action = scanner.nextInt();
 
-            // If word is smaller, ignore right half
-            if (compare < 0) {
-                return binaryLookup(start, mid - 1, word, temp);
+            switch (action) {
+                case 1:
+                    dictionaryManagement.addWord();
+                    break;
+                case 2:
+                    dictionaryManagement.deleteWord();
+                    break;
+                case 3:
+                    dictionaryManagement.editWord();
+                    break;
+                case 4:
+                    showAllWords(dictionaryManagement.getDictionary());
+                    break;
+                case 5:
+                    dictionaryManagement.dictionaryLookup();
+                    break;
+                case 6:
+                    dictionarySearcher(dictionaryManagement.getDictionary());
+                    break;
+                case 7:
+                    int numOfQuestions = Game.getNumOfQuestions();
+                    Game.loadQuestion(numOfQuestions);
+                    break;
+                case 8:
+                    dictionaryManagement.insertFromFile();
+                    break;
+                case 9:
+                    dictionaryManagement.dictionaryExportToFile();
+                    break;
+                default:
+                    if (action != 0) {
+                        System.out.println("Action not supported");
+                    }
+                    break;
             }
-
-            // Else the word can only be present in right subarray
-            return binaryLookup(mid + 1, end, word, temp);
-        }
-
-        // We reach here when the word is not present in the array
-        return -1;
+        } while (action != 0);
     }
 
-    public void addWord() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the English word to add:");
-        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
-
-        System.out.println("Enter the Vietnamese meaning:");
-        String vietnameseWord = scanner.nextLine();
-
-        Word word = new Word(englishWord, vietnameseWord);
-        dictionary.addWord(word);
-
-        // Write the new word to the file
-        try {
-            FileWriter writer = new FileWriter(IN_PATH, true); // true to append to the file
-            writer.write(englishWord + "," + vietnameseWord + "\n");
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file.");
-            e.printStackTrace();
-        }
-
-        System.out.println("Word added successfully.");
-    }
-
-    public void editWord() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the English word to edit:");
-        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
-
-        int index = binaryLookup(0, dictionary.getWords().size(), englishWord, dictionary.getWords());
-        if (index >= 0) {
-            System.out.println("Enter the new Vietnamese meaning:");
-            String vietnameseWord = scanner.nextLine();
-
-            dictionary.getWords().get(index).setMeaning(vietnameseWord);
-
-            System.out.println("Word edited successfully.");
-        } else {
-            System.out.println("Word not found in the dictionary.");
-        }
-    }
-
-    public void deleteWord() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the English word to delete:");
-        String englishWord = scanner.nextLine().toLowerCase(); // convert to lower case
-
-        int index = binaryLookup(0, dictionary.getWords().size(), englishWord, dictionary.getWords());
-        if (index >= 0) {
-            dictionary.getWords().remove(index);
-
-            System.out.println("Word deleted successfully.");
-        } else {
-            System.out.println("Word not found in the dictionary.");
-        }
-    }
-
-    public void dictionaryExportToFile() {
-        try {
-            FileWriter writer = new FileWriter(OUT_PATH);
-
-            for (Word word : dictionary.getWords()) {
-                writer.write(word.getSearching() + "\t" + word.getMeaning() + "\n");
-            }
-
-            writer.close();
-            System.out.println("Từ điển được suất thành công ra file dictionary_out.txt.");
-        } catch (IOException e) {
-            System.out.println("Đã xảy ra lỗi khi xuất từ điển.");
-            e.printStackTrace();
-        }
-    }
-
-
-
-    public static int isContain(String str1, String str2) {
-        for (int i = 0; i < Math.min(str1.length(), str2.length()); i++) {
-            if (str1.charAt(i) > str2.charAt(i)) {
-                return 1;
-            } else if (str1.charAt(i) < str2.charAt(i)) {
-                return -1;
-            }
-        }
-        if (str1.length() > str2.length()) {
-            return 1;
-        }
-        return 0;
-    }
-    public Dictionary getDictionary() {
-        return dictionary;
+    public static void main(String[] args) {
+        DictionaryCommandLine commandLine = new DictionaryCommandLine();
+        commandLine.dictionaryAdvanced();
     }
 }
