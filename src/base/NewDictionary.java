@@ -52,45 +52,66 @@ public class NewDictionary {
         return bookmarkVocab;
     }
 
+    /**
+     * Nhận vào đường dẫn của tệp tin HTML và một ArrayList(temp) để lưu trữ dữ liệu.
+     * @param path đường dẫn
+     * @param temp Danh sách được sắp xếp
+     */
     public void loadDataFromHTMLFile(String path, ArrayList<Word> temp) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
             while ((line = reader.readLine()) != null) {
+                //thêm từ
                 String[] parts = line.split(SPLITTING_PATTERN);
                 String word = parts[0];
+                //thêm định nghĩa cho từ
                 String definition = SPLITTING_PATTERN + parts[1];
                 Word wordObj = new Word(word, definition);
                 temp.add(wordObj);
             }
-            Collections.sort(temp);
+            Collections.sort(temp); //sắp xếp các từ
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * load dữ liệu lịch sử từ.
+     */
     public void loadDataFromHistoryFile(){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(HISTORY_PATH));
             String line;
             while ((line = reader.readLine()) != null) {
+                //Thêm từ
                 String[] parts = line.split(SPLITTING_PATTERN);
                 String word = parts[0];
+                // Thêm nghĩa cho từ
                 String definition = SPLITTING_PATTERN + parts[1];
                 Word wordObj = new Word(word, definition);
-                historyVocab.add(wordObj);
+                historyVocab.add(wordObj); //Thêm vào list historyVocab
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Xuất từ ra file html.
+     * @param path
+     * @param spelling
+     */
     public void exportWordToHTMLFile(String path, String spelling) {
         try {
             File file = new File(path);
             FileWriter fileWriter = new FileWriter(file, true);
+
+            //Tìm kiếm bằng tìm kiếm nhị phân và lấy định nghĩa
             int index = Collections.binarySearch(vocab, new Word(spelling, null));
             String meaning = vocab.get(index).getMeaning();
+
+            // Viết từ và định nghĩa vào tệp HTML
             fileWriter.write(spelling + meaning + "\n");
             fileWriter.flush();
             fileWriter.close();
@@ -101,8 +122,11 @@ public class NewDictionary {
 
     public void addWordToFile(String spelling, String meaning, String path) {
         try {
+            //Mở tệp
             File file = new File(path);
             FileWriter fileWriter = new FileWriter(file, true);
+
+            //Ghi từ và định nghĩa
             fileWriter.write(spelling + meaning + "\n");
             fileWriter.flush();
             fileWriter.close();
@@ -111,6 +135,11 @@ public class NewDictionary {
         }
     }
 
+    /**
+     * Cập nhật nội dung từ của file.
+     * @param path  đường dẫn
+     * @param temp  list đã sắp xếp
+     */
     public void updateWordToFile(String path, ArrayList<Word> temp) {
         try {
             File file = new File(path);
@@ -125,17 +154,29 @@ public class NewDictionary {
         }
     }
 
+    /**
+     * Thêm từ vào danh sách.
+     * @param searching từ cần thêm
+     * @param meaning nghĩa của từ
+     * @return
+     */
     public boolean addWord(String searching, String meaning) {
-        searching = searching.toLowerCase();
+        searching = searching.toLowerCase(); //chuyển thành chữ thường
+
+        //Kiểm tra bằng nhị phân để tìm vị trí thích hợp cho từ cần thêm
         int posAddWord = binaryCheck(0, vocab.size(), searching);
         if (posAddWord == -1) {
-            return false;
+            return false; // từ đã tồn tại
         }
-        vocab.add(new Word());
+        vocab.add(new Word()); //Đối tượng từ mới được thêm
+
+        //Dịch chuyển các từ sang phải 2 vị trí để thêm từ mới
         for (int i = vocab.size() - 2; i >= posAddWord; i--) {
             vocab.get(i + 1).setSearching(vocab.get(i).getSearching());
             vocab.get(i + 1).setMeaning(vocab.get(i).getMeaning());
         }
+
+        // Gán từ cần thêm vào vị trí
         vocab.get(posAddWord).setSearching(searching);
         vocab.get(posAddWord).setMeaning(meaning);
         Collections.sort(vocab);
@@ -143,8 +184,16 @@ public class NewDictionary {
         return true;
     }
 
+    /**
+     * Xoá từ trong list.
+     * @param searching từ cần xoá
+     * @param path  đường dẫn tới file
+     * @param temp  Danh sách word đã sắp ếp
+     */
     public void removeWord(String searching, String path, ArrayList<Word> temp) {
         searching = searching.toLowerCase();
+
+        //Tìm kiếm từ cần xoá bằng tìm kiếm nhị phân
         int index = Collections.binarySearch(temp, new Word(searching, null));
         if (index >= 0) {
             temp.remove(temp.get(index));
@@ -154,6 +203,11 @@ public class NewDictionary {
         updateWordToFile(path, temp);
     }
 
+    /**
+     * Sửa từ.
+     * @param searching từ cần sửa.
+     * @param meaning   nghĩa của từ.
+     */
     public void modifyWord(String searching, String meaning) {
         searching = searching.toLowerCase();
         meaning = meaning.toLowerCase();
@@ -167,6 +221,13 @@ public class NewDictionary {
         updateWordToFile(PATH, vocab);
     }
 
+    /**
+     * Tìm kiếm nhị phân trên danh sách để tìm vị trí thích hợp ể chèn một từ mới vào danh sách.
+     * @param start vị tr bắt đầu
+     * @param end   vị trí kết thúc
+     * @param word  từ cần tìm
+     * @return
+     */
     public int binaryCheck(int start, int end, String word) {
         if (end < start) {
             return -1;
@@ -198,6 +259,14 @@ public class NewDictionary {
         }
     }
 
+    /**
+     * Tìm kiếm từ trong danh sách bằng tìm kiếm nhị phân.
+     * @param start vị trí bắt đầu
+     * @param end   vị trí kết thúc
+     * @param word  từ cần tìm
+     * @param temp  danh sách từ điển cần tìm kiếm
+     * @return
+     */
     public int binaryLookup(int start, int end, String word, ArrayList<Word> temp) {
         if (end < start) {
             return -1;

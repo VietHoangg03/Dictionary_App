@@ -11,27 +11,35 @@ public class SimpleMap {
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
      * MUST be a power of two <= 1<<30.
+     *
+     * Dung lượng tối đa, được sử dụng nếu giá trị cao hơn được chỉ định ngầm
+     * Bởi một trong hai hàm tạo có đối số
+     * Phải là luỹ thừa của hai <= 1<<30.
      */
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
      * The table, resized as necessary. Length MUST Always be a power of two.
+     * Mảng lưu trữ các entry của bản đồ
      */
     private Entry[] table;
 
     /**
      * The number of key-value mappings contained in this map.
+     * Số lượng cặp khoá-giá trị trong bản đồ
      */
     private int size;
 
     /**
      * The next size value at which to resize (capacity * load factor).
+     * Ngưỡng kích thước, là kích thước tối đa trước khi cần thay đổi kích thước bản đồ
      * @serial
      */
     private int threshold;
 
     /**
      * The load factor for the hash table.
+     * Hệ số tải, quy định mức độ tải của bảng băm
      *
      * @serial
      */
@@ -63,6 +71,7 @@ public class SimpleMap {
 
     /**
      * Returns index for hash code h.
+     * Trả về chỉ số cho mã băm h trong một bảng có độ dài length
      */
     private final static int indexFor(final int h, final int length) {
         return h & (length-1);
@@ -70,6 +79,7 @@ public class SimpleMap {
 
     /**
      * Returns the number of key-value mappings in this map.
+     * Trả về số lượng cặp khoá-giá trị trong bản đồ.
      *
      * @return the number of key-value mappings in this map
      */
@@ -79,6 +89,8 @@ public class SimpleMap {
 
     /**
      * Returns the value to which the specified key is mapped,
+     * Trả về giá trị được ánh xạ với khoá cụ thể, hoặc null nếu bản đồ không chứa khoá đó
+     *
      * or {@code null} if this map contains no mapping for the key.
      *
      * <p>More formally, if this map contains a mapping from a key
@@ -111,6 +123,7 @@ public class SimpleMap {
     /**
      * Returns <tt>true</tt> if this map contains a mapping for the
      * specified key.
+     * Kiểm tra xem bản đồ có chứa một khóa cụ thể không.
      *
      * @param   key   The key whose presence in this map is to be tested
      * @return <tt>true</tt> if this map contains a mapping for the specified
@@ -122,6 +135,7 @@ public class SimpleMap {
 
     /**
      * Returns the entry associated with the specified key in the
+     *  Trả về entry được liên kết với khóa cụ thể trong bản đồ.
      * SimpleMap.  Returns null if the SimpleMap contains no mapping
      * for the key.
      */
@@ -143,6 +157,7 @@ public class SimpleMap {
      * Associates the specified value with the specified key in this map.
      * If the map previously contained a mapping for the key, the old
      * value is replaced.
+     * Liên kết giá trị được chỉ định với khóa được chỉ định trong bản đồ, ghi đè giá trị cũ nếu đã tồn tại.
      *
      * @param key key with which the specified value is to be associated
      * @param value value to be associated with the specified key
@@ -172,6 +187,8 @@ public class SimpleMap {
      * larger capacity.  This method is called automatically when the
      * number of keys in this map reaches its threshold.
      *
+     * hay đổi kích thước của bản đồ thành một mảng mới với dung lượng lớn hơn.
+     *
      * If current capacity is MAXIMUM_CAPACITY, this method does not
      * resize the map, but sets threshold to Integer.MAX_VALUE.
      * This has the effect of preventing future calls.
@@ -197,6 +214,8 @@ public class SimpleMap {
 
     /**
      * Transfers all entries from current table to newTable.
+     *
+     * Chuyển tất cả các entry từ bảng hiện tại sang bảng mới.
      */
     private final void transfer(final Entry[] newTable) {
         Entry[] src = table;
@@ -252,6 +271,7 @@ public class SimpleMap {
      * Adds a new entry with the specified key, value and hash code to
      * the specified bucket.  It is the responsibility of this
      * method to resize the table if appropriate.
+     * Thêm một entry mới với khóa, giá trị và mã băm được chỉ định vào bucket được chỉ định trong bảng.
      *
      * Subclass overrides this to alter the behavior of put method.
      */

@@ -121,6 +121,4 @@ public class GameController {
         congratulationLabel.setText("Congratulations! You have reached " + correctCount + " correct answers!");
         congratulationLabel.setVisible(true);
     }
-
-
 }

@@ -21,10 +21,13 @@ public class VoiceRSS {
     public static double speed = 1;
     public static void speakWord(String word) throws Exception {
         VoiceProvider tts = new VoiceProvider(API_KEY);
+        //Thiết lập âm thanh trả về là 44kHz_16bit_stereo
         VoiceParameters params = new VoiceParameters(word, AudioFormat.Format_44KHZ.AF_44khz_16bit_stereo);
         params.setBase64(false);
-        params.setLanguage(language);
+        params.setLanguage(language); //Thiết lập ngôn ngữ cho giọng
         params.setVoice(Name);
+
+        //Thiếp lập tốc độ đọc
         params.setRate((int) Math.round(-2.9936 * speed * speed + 15.2942 * speed - 12.7612));
 
         byte[] voice = tts.speech(params);

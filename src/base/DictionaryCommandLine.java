@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class DictionaryCommandLine {
+    /**
+     * Hiển thị các từ trong file.
+     * @param dictionary từ điển.
+     */
     public void showAllWords(Dictionary dictionary) {
         Collections.sort(dictionary.getWords());
 
@@ -30,23 +34,25 @@ public class DictionaryCommandLine {
 
     /**
      * Tìm kiếm với tiền tố.
+     * @param dictionary từ điển.
      */
     public void dictionarySearcher(Dictionary dictionary) {
+        //load file
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the prefix to search:");
-        String prefix = scanner.nextLine().toLowerCase(); // convert to lower case
+        String prefix = scanner.nextLine().toLowerCase(); // Tiền tố để tìm kiếm
 
         System.out.println("Words starting with '" + prefix + "':");
         for (Word word : dictionary.getWords()) {
-            if (word.getSearching().toLowerCase().startsWith(prefix)) { // convert to lower case before comparing
+            if (word.getSearching().toLowerCase().startsWith(prefix)) { // Chuyển sang chữ thường
                 System.out.println(word.getSearching() + " - " + word.getMeaning());
             }
         }
     }
 
     /**
-     * Giao diện CommandLine.
+     * Giao diện commandline.
      */
     public void dictionaryAdvanced() {
         DictionaryManagement dictionaryManagement = new DictionaryManagement();
@@ -111,6 +117,10 @@ public class DictionaryCommandLine {
         } while (action != 0);
     }
 
+    /**
+     * Main run commandline.
+     * @param args nhập lựa chọn.
+     */
     public static void main(String[] args) {
         DictionaryCommandLine commandLine = new DictionaryCommandLine();
         commandLine.dictionaryAdvanced();
