@@ -1,0 +1,20 @@
+Trong ngữ cảnh của một từ điển, lớp SimpleMap có thể được sử dụng để lưu trữ các cặp từ và nghĩa của chúng.
+Dưới đây là cách hoạt động cơ bản của SimpleMap trong việc làm từ điển:
+
+* Thêm từ mới và nghĩa của từ:
+Khi bạn muốn thêm một từ mới vào từ điển, bạn sẽ gọi phương thức put(String key, short value) với key là từ và
+value là nghĩa của từ.
+Lớp SimpleMap sẽ sử dụng hàm băm để tính toán mã băm cho từng từ và lưu trữ nó trong bản đồ theo cách tối ưu.
+
+* Truy vấn nghĩa của từ:
+Khi bạn muốn tìm nghĩa của một từ trong từ điển, bạn sẽ gọi phương thức get(String key) với key là từ bạn muốn tra cứu.
+Lớp SimpleMap sẽ sử dụng mã băm của từ để tìm kiếm nó trong bản đồ và trả về nghĩa của từ tương ứng, nếu có.
+
+* Xóa từ khỏi từ điển:
+Khi bạn muốn xóa một từ khỏi từ điển, bạn sẽ gọi phương thức remove(String key) với key là từ bạn muốn xóa.
+Lớp SimpleMap sẽ sử dụng mã băm của từ để tìm và xóa nó khỏi bản đồ, nếu có.
+
+* Kiểm tra sự tồn tại của từ trong từ điển:
+Bạn có thể sử dụng phương thức containsKey(String key) để kiểm tra xem một từ có tồn tại trong từ điển hay không.
+Trong ngữ cảnh của từ điển, SimpleMap cung cấp một cách đơn giản để lưu trữ và quản lý các từ và nghĩa của
+chúng một cách hiệu quả
